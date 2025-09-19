@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Contacts API",
-    "description": "A simple CRUD API for managing contacts",
+    "title": "Appointment Scheduling System API",
+    "description": "A simple CRUD API for managing appointments",
     "version": "1.0.0"
   },
   "host": "http://localhost:3000/",

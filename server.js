@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const connectDb = require('./config/db');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./docs/swagger');
+const swaggerDoc = require('./swagger-output.json')
 const errorHandler = require('./middlewares/errorHandler');
 
 dotenv.config();
@@ -18,7 +19,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 // routes
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/appointments', require('./routes/appointments'));
 app.use('/api/providers', require('./routes/providers'));
