@@ -20,6 +20,7 @@ app.use(morgan('dev'));
 
 // routes
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+//app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/appointments', require('./routes/appointments'));
 app.use('/api/providers', require('./routes/providers'));

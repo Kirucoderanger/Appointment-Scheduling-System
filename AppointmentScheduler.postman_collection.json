@@ -1,0 +1,156 @@
+[
+  {
+    "info": {
+      "name": "Appointment Scheduler API",
+      "_postman_id": "abcd1234-5678-90ef-1234-567890abcdef",
+      "description": "Postman collection for Appointment Scheduling System (Node/Express/Mongo)",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Health Check",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "{{base_url}}/api/health",
+            "host": ["{{base_url}}"],
+            "path": ["api", "health"]
+          }
+        }
+      },
+      {
+        "name": "Auth - Register",
+        "request": {
+          "method": "POST",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"client\"\n}"
+          },
+          "url": {
+            "raw": "{{base_url}}/api/auth/register",
+            "host": ["{{base_url}}"],
+            "path": ["api", "auth", "register"]
+          }
+        }
+      },
+      {
+        "name": "Auth - Login",
+        "request": {
+          "method": "POST",
+          "header": [{ "key": "Content-Type", "value": "application/json" }],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\"\n}"
+          },
+          "url": {
+            "raw": "{{base_url}}/api/auth/login",
+            "host": ["{{base_url}}"],
+            "path": ["api", "auth", "login"]
+          }
+        },
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "exec": [
+                "let jsonData = pm.response.json();",
+                "if (jsonData.token) {",
+                "    pm.environment.set(\"token\", jsonData.token);",
+                "    console.log(\"✅ Token saved to environment\");",
+                "} else {",
+                "    console.log(\"❌ No token found in response\");",
+                "}"
+              ],
+              "type": "text/javascript"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Get Providers",
+        "request": {
+          "method": "GET",
+          "header": [
+            { "key": "Authorization", "value": "Bearer {{token}}" }
+          ],
+          "url": {
+            "raw": "{{base_url}}/api/providers",
+            "host": ["{{base_url}}"],
+            "path": ["api", "providers"]
+          }
+        },
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "exec": [
+                "let jsonData = pm.response.json();",
+                "if (jsonData && jsonData.length > 0) {",
+                "    pm.environment.set(\"providerId\", jsonData[0]._id);",
+                "    console.log(\"✅ providerId saved: \" + jsonData[0]._id);",
+                "} else {",
+                "    console.log(\"❌ No providers found to save\");",
+                "}"
+              ],
+              "type": "text/javascript"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Set Provider Availability",
+        "request": {
+          "method": "PUT",
+          "header": [
+            { "key": "Authorization", "value": "Bearer {{token}}" },
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"slots\": [\n    {\"start\": \"2025-09-18T09:00:00Z\", \"end\": \"2025-09-18T09:30:00Z\"},\n    {\"start\": \"2025-09-18T10:00:00Z\", \"end\": \"2025-09-18T10:30:00Z\"}\n  ]\n}"
+          },
+          "url": {
+            "raw": "{{base_url}}/api/providers/{{providerId}}/availability",
+            "host": ["{{base_url}}"],
+            "path": ["api", "providers", "{{providerId}}", "availability"]
+          }
+        }
+      },
+      {
+        "name": "Create Appointment",
+        "request": {
+          "method": "POST",
+          "header": [
+            { "key": "Authorization", "value": "Bearer {{token}}" },
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"providerId\": \"{{providerId}}\",\n  \"start\": \"2025-09-18T09:00:00Z\",\n  \"end\": \"2025-09-18T09:30:00Z\"\n}"
+          },
+          "url": {
+            "raw": "{{base_url}}/api/appointments",
+            "host": ["{{base_url}}"],
+            "path": ["api", "appointments"]
+          }
+        }
+      },
+      {
+        "name": "Get Appointments",
+        "request": {
+          "method": "GET",
+          "header": [
+            { "key": "Authorization", "value": "Bearer {{token}}" }
+          ],
+          "url": {
+            "raw": "{{base_url}}/api/appointments",
+            "host": ["{{base_url}}"],
+            "path": ["api", "appointments"]
+          }
+        }
+      }
+    ]
+  }
+]
