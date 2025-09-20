@@ -3,8 +3,8 @@ const Provider = require('../models/Provider');
 const mongoose = require('mongoose');
 
 exports.bookAppointment = async (clientId, data) => {
-  const { providerId, start, end, service, notes } = data;
-  const provider = await Provider.findById(providerId);
+  const { userId, start, end, service, notes } = data;
+  const provider = await Provider.findById(userId);
   if (!provider) {
     const err = new Error('Provider not found'); err.statusCode = 404; throw err;
   }
@@ -36,7 +36,9 @@ exports.updateAppointment = async (id, data, user) => {
   if (!appointment) { const err = new Error('Appointment not found'); err.statusCode = 404; throw err; }
 
   // authorization: client who owns it, provider of it, or admin
-  const allowed = (user.role === 'admin') || (user.role === 'provider' && appointment.providerId.equals(user.id)) || (user.role === 'client' && appointment.clientId.equals(user.id));
+  const allowed = user.role === 'admin' ||
+  (user.role === 'provider' && appointment.providerId?.toString() === user.id.toString()) ||
+  (user.role === 'client' && appointment.clientId?.toString() === user.id.toString());
   if (!allowed) { const err = new Error('Forbidden'); err.statusCode = 403; throw err; }
 
   if (data.start || data.end) {
@@ -78,7 +80,28 @@ exports.getAllAppointments = async () => {
   return Appointment.find().populate('clientId providerId').sort({ start: -1 });
 };
 
+exports.deleteAppointment = async (id, user) => {
+  const appointment = await Appointment.findById(id);
+  if (!appointment) {
+    const err = new Error('Appointment not found');
+    err.statusCode = 404;
+    throw err;
+  }
 
+  // Authorization: client, provider, or admin
+  const allowed =
+    user.role === 'admin' ||
+    (user.role === 'provider' && appointment.providerId.equals(user.id)) ||
+    (user.role === 'client' && appointment.clientId.equals(user.id));
+  if (!allowed) {
+    const err = new Error('Forbidden');
+    err.statusCode = 403;
+    throw err;
+  }
+
+  await appointment.remove();
+  return appointment;
+};
 
 
 

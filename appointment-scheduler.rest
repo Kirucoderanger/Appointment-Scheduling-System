@@ -10,8 +10,8 @@ POST {{base_url}}/api/auth/register
 Content-Type: application/json
 
 {
-  "name": "Dr. Smith",
-  "email": "provider@example.com",
+  "name": "Dr. walton",
+  "email": "walton@example.com",
   "password": "password123",
   "role": "provider"
 }
@@ -22,8 +22,8 @@ POST {{base_url}}/api/auth/register
 Content-Type: application/json
 
 {
-  "name": "John Doe",
-  "email": "user@example.com",
+  "name": "client user",
+  "email": "client1@example.com",
   "password": "password123",
   "role": "client"
 }
@@ -53,7 +53,7 @@ POST {{base_url}}/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "provider@example.com",
+  "email": "walton@example.com",
   "password": "password123"
 }
 
@@ -62,45 +62,86 @@ POST {{base_url}}/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "user@example.com",
+  "email": "client1@example.com",
   "password": "password123"
 }
 
 
 ### 6. Get Providers (logged in as client)
 GET {{base_url}}/api/providers
-Authorization: Bearer {{token}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2U4MjQ1YmM5Mjk2MDZlYTM0NmJhNCIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3NTgzNjY3NjcsImV4cCI6MTc1ODk3MTU2N30.bxgNVKkEvG1L3R28Rv1l_54CAVC9dGY8hpUms7RgJu8
 
 
 ### 7. Provider Sets Availability
-PUT {{base_url}}/api/providers/68cde23659e1b2064e50191f/availability
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2U4MjQ1YmM5Mjk2MDZlYTM0NmJhNCIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3NTgzNjQyNzQsImV4cCI6MTc1ODk2OTA3NH0.lZjn-IRJ85hOKZX3BjX3LM_oWVz9n1F5L5C7P5oIvgU
+PUT {{base_url}}/api/providers/68ce911ea5048cf560215860/availability
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2U5MTFlYTUwNDhjZjU2MDIxNTg1ZSIsInJvbGUiOiJwcm92aWRlciIsImVtYWlsIjoid2FsdG9uQGV4YW1wbGUuY29tIiwiaWF0IjoxNzU4Mzc5MTY5LCJleHAiOjE3NTg5ODM5Njl9.NjqPLsvzGRM4wL0B9w7pCP122RIYcIbLN_sCCnbp3Jg
 Content-Type: application/json
 
 {
   "slots": [
-    { "start": "2025-09-18T09:00:00Z", "end": "2025-09-18T09:30:00Z" },
-    { "start": "2025-09-18T10:00:00Z", "end": "2025-09-18T10:30:00Z" }
+    { "start": "2025-10-18T09:00:00Z", "end": "2025-10-18T09:30:00Z" },
+    { "start": "2025-10-18T10:00:00Z", "end": "2025-10-18T10:30:00Z" }
   ]
 }
 
 
 ### 8. Client Books Appointment
 POST {{base_url}}/api/appointments
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2RkMjdkNTI4YzliNTM2ZjJmY2VlMyIsInJvbGUiOiJjbGllbnQiLCJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJpYXQiOjE3NTgzMjU2NTMsImV4cCI6MTc1ODkzMDQ1M30.lPO0AGawlBCHgESKkJEqnFDgCROMOoXyAKNVt1HL-Dg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2U4ZTE5YTUwNDhjZjU2MDIxNTg1NiIsInJvbGUiOiJjbGllbnQiLCJlbWFpbCI6ImNsaWVudDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NTgzNjc2NTUsImV4cCI6MTc1ODk3MjQ1NX0.pU_VK-eNpj-zAI7JC0q82bnI7ZCL-qbN36GPxCyyFYM
 Content-Type: application/json
 
 {
-  "providerId": "68cde23659e1b2064e50191f",
-  "start": "2025-09-18T09:00:00Z",
-  "end": "2025-09-18T09:30:00Z",
-  "service": "General Consultation"
-    
+  "providerId": "68ce911ea5048cf560215860",
+  "start": "2025-10-18T09:00:00Z",
+  "end": "2025-10-18T09:30:00Z",
+  "service": "General Consultation",
+  "notes": "Patient prefers morning appointments."
 }
 
 
 
 
 ### 9. Get Client’s Appointments
-GET {{base_url}}/api/appointments
+GET {{base_url}}/api/appointments/me
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2U4MjQ1YmM5Mjk2MDZlYTM0NmJhNCIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3NTgzNjQyNzQsImV4cCI6MTc1ODk2OTA3NH0.lZjn-IRJ85hOKZX3BjX3LM_oWVz9n1F5L5C7P5oIvgU
+
+### Get Provider’s Appointments (as Provider)
+GET {{base_url}}/api/appointments/provider/68ce911ea5048cf560215860
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2U5MTFlYTUwNDhjZjU2MDIxNTg1ZSIsInJvbGUiOiJwcm92aWRlciIsImVtYWlsIjoid2FsdG9uQGV4YW1wbGUuY29tIiwiaWF0IjoxNzU4Mzc5MTY5LCJleHAiOjE3NTg5ODM5Njl9.NjqPLsvzGRM4wL0B9w7pCP122RIYcIbLN_sCCnbp3Jg
+### Get All Appointments (as Admin)
+GET {{base_url}}/api/appointments/all
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2U4MjQ1YmM5Mjk2MDZlYTM0NmJhNCIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3NTgzNjU5OTIsImV4cCI6MTc1ODk3MDc5Mn0.EetwAxnt6K4r1nXD8SdjdBzTqmuG4ELjNQkpkUUVmHc
+
+### Cancel Appointment (as Client)
+DELETE {{base_url}}/api/appointments/68cc91f967b163585a54e422
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2U4ZTE5YTUwNDhjZjU2MDIxNTg1NiIsInJvbGUiOiJjbGllbnQiLCJlbWFpbCI6ImNsaWVudDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NTgzODEwMjEsImV4cCI6MTc1ODk4NTgyMX0.zE238QhuCcvDzeRG9ZOloibfNVqiAHRXlAVqPs4et2o
+Content-Type: application/json
+{
+  "reason": "Scheduling conflict"
+}
+
+### Cancel Appointment (as Provider)
+DELETE {{base_url}}/api/appointments/{{appointmentId}}  
+Authorization: Bearer {{providerToken}}
+Content-Type: application/json
+{
+  "reason": "Emergency"
+}
+### Cancel Appointment (as Admin)
+DELETE {{base_url}}/api/appointments/{{appointmentId}}
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+{
+  "reason": "Administrative decision"
+}
+
+### update Appointment (as Client)
+PUT {{base_url}}/api/appointments/68cc91f967b163585a54e422
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2U4ZTE5YTUwNDhjZjU2MDIxNTg1NiIsInJvbGUiOiJjbGllbnQiLCJlbWFpbCI6ImNsaWVudDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NTgzODEwMjEsImV4cCI6MTc1ODk4NTgyMX0.zE238QhuCcvDzeRG9ZOloibfNVqiAHRXlAVqPs4et2o
+Content-Type: application/json
+
+{
+  "start": "2025-10-18T09:00:00Z",
+  "end": "2025-10-18T09:30:00Z",
+  "notes": "Patient prefers morning appointments."
+}

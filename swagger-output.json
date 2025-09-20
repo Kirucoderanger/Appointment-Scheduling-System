@@ -3,6 +3,10 @@
   "info": {
     "title": "Appointment Scheduling System API",
     "description": "A simple CRUD API for managing appointments",
+    "testToken": {
+      "type": "string",
+      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    },
     "version": "1.0.0"
   },
   "host": "appointment-scheduling-system-nbsu.onrender.com",
