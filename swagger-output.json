@@ -3,10 +3,6 @@
   "info": {
     "title": "Appointment Scheduling System API",
     "description": "A simple CRUD API for managing appointments",
-    "testToken": {
-      "type": "string",
-      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-    },
     "version": "1.0.0"
   },
   "host": "appointment-scheduling-system-nbsu.onrender.com",
@@ -14,6 +10,14 @@
   "schemes": [
     "https"
   ],
+  "securityDefinitions": {
+    "bearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Enter your bearer token in the format **Bearer <token>**"
+    }
+  },
   "paths": {
     "/api/health": {
       "get": {
@@ -239,6 +243,47 @@
         }
       }
     },
+    "/api/appointments/{id}/cancel": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "reason": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
     "/api/providers/": {
       "get": {
         "description": "",
@@ -293,5 +338,10 @@
         }
       }
     }
-  }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
 }

@@ -22,9 +22,9 @@ POST {{base_url}}/api/auth/register
 Content-Type: application/json
 
 {
-  "name": "client user",
-  "email": "client1@example.com",
-  "password": "password123",
+  "name": "client4",
+  "email": "client4@test.com",
+  "password": "testclient4",
   "role": "client"
 }
 
@@ -91,7 +91,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2U4ZTE5Y
 Content-Type: application/json
 
 {
-  "providerId": "68ce911ea5048cf560215860",
+  "providerId": "68cf12439b61ef1753ad47cd",
   "start": "2025-10-18T09:00:00Z",
   "end": "2025-10-18T09:30:00Z",
   "service": "General Consultation",
@@ -110,7 +110,7 @@ GET {{base_url}}/api/appointments/provider/68ce911ea5048cf560215860
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2U5MTFlYTUwNDhjZjU2MDIxNTg1ZSIsInJvbGUiOiJwcm92aWRlciIsImVtYWlsIjoid2FsdG9uQGV4YW1wbGUuY29tIiwiaWF0IjoxNzU4Mzc5MTY5LCJleHAiOjE3NTg5ODM5Njl9.NjqPLsvzGRM4wL0B9w7pCP122RIYcIbLN_sCCnbp3Jg
 ### Get All Appointments (as Admin)
 GET {{base_url}}/api/appointments/all
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2U4MjQ1YmM5Mjk2MDZlYTM0NmJhNCIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3NTgzNjU5OTIsImV4cCI6MTc1ODk3MDc5Mn0.EetwAxnt6K4r1nXD8SdjdBzTqmuG4ELjNQkpkUUVmHc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2U4Njc1YTUwNDhjZjU2MDIxNTgzZCIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoidGVzdDJAdGVzdDIuY29tIiwiaWF0IjoxNzU4Mzg5MjY5LCJleHAiOjE3NTg5OTQwNjl9.icHkmm6zSfnBIdbDVbfLsxDEYMmETXpkaXejpaHSbe0
 
 ### Cancel Appointment (as Client)
 DELETE {{base_url}}/api/appointments/68cc91f967b163585a54e422
@@ -122,16 +122,12 @@ Content-Type: application/json
 DELETE {{base_url}}/api/appointments/{{appointmentId}}  
 Authorization: Bearer {{providerToken}}
 Content-Type: application/json
-{
-  "reason": "Emergency"
-}
+
 ### Cancel Appointment (as Admin)
-DELETE {{base_url}}/api/appointments/{{appointmentId}}
-Authorization: Bearer {{adminToken}}
+DELETE {{base_url}}/api/appointments/68cc91f967b163585a54e422
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2U4MjQ1YmM5Mjk2MDZlYTM0NmJhNCIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3NTgzODYzNDYsImV4cCI6MTc1ODk5MTE0Nn0.CbgWdcjzuZYKMl6w0gghK4o0opPo7JB7vlllliTDM9w
 Content-Type: application/json
-{
-  "reason": "Administrative decision"
-}
+
 
 ### update Appointment (as Client)
 PUT {{base_url}}/api/appointments/68cc91f967b163585a54e422
@@ -156,13 +152,13 @@ Content-Type: application/json
 }
 
 ### update Appointment (as Admin)
-PUT {{base_url}}/api/appointments/68cc91f967b163585a
-Authorization: Bearer {{adminToken}}
+PUT {{base_url}}/api/appointments/68ceb9f78d17f9991343341f
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2U4MjQ1YmM5Mjk2MDZlYTM0NmJhNCIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3NTgzODYzNDYsImV4cCI6MTc1ODk5MTE0Nn0.CbgWdcjzuZYKMl6w0gghK4o0opPo7JB7vlllliTDM9w
 Content-Type: application/json
 
 {
-  "start": "2025-10-18T10:00:00Z",
-  "end": "2025-10-18T10:30:00Z",
+  "start": "2025-11-18T10:00:00Z",
+  "end": "2025-11-18T10:30:00Z",
   "notes": "Rescheduled to later time."
 }
 

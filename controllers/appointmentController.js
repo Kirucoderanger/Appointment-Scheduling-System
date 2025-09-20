@@ -2,8 +2,8 @@ const asyncHandler = require('../middlewares/asyncHandler');
 const appointmentService = require('../services/appointmentService');
 
 exports.book = asyncHandler(async (req, res) => {
-  const userId = req.user.id || req.user._id || req.user.id; // depending on jwt payload
-  const appointment = await appointmentService.bookAppointment(userId, req.body);
+  const providerId = req.user.id || req.user._id || req.user.id; // depending on jwt payload
+  const appointment = await appointmentService.bookAppointment(providerId, req.body);
   res.status(201).json(appointment);
 });
 
