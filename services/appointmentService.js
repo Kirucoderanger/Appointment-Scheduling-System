@@ -3,8 +3,8 @@ const Provider = require('../models/Provider');
 const mongoose = require('mongoose');
 
 exports.bookAppointment = async (clientId, data) => {
-  const { userId, start, end, service, notes } = data;
-  const provider = await Provider.findById(userId);
+  const { providerId, start, end, service, notes } = data;
+  const provider = await Provider.findById(providerId);
   if (!provider) {
     const err = new Error('Provider not found'); err.statusCode = 404; throw err;
   }
