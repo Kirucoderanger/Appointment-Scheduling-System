@@ -97,6 +97,30 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "providerId": {
+                  "example": "any"
+                },
+                "start": {
+                  "example": "any"
+                },
+                "end": {
+                  "example": "any"
+                },
+                "service": {
+                  "example": "any"
+                },
+                "notes": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
