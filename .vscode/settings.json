@@ -1,0 +1,11 @@
+{
+  "rest-client.environmentVariables": {
+    "local": {
+      "base_url": "https://appointment-scheduling-system-nbsu.onrender.com",
+      "providerToken": "",
+      "providerUserId": "",
+      "clientToken": "",
+      "clientUserId": ""
+    }
+  }
+}

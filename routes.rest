@@ -1,0 +1,155 @@
+### Appointment Scheduling System API
+### This is a simple CRUD API for managing appointments, built with Node.js, Express, and MongoDB. The API allows users to create, read, update, and delete appointments.
+### The API is documented using Swagger, which provides an interactive interface for exploring the available endpoints and their parameters.
+### The API is hosted on Render and can be accessed at https://appointment-scheduling-system-nbsu.onrender.com/api.
+
+
+
+### Health Check
+GET https://appointment-scheduling-system-nbsu.onrender.com/api/health
+
+### Auth - Register
+POST https://appointment-scheduling-system-nbsu.onrender.com/api/auth/register
+Content-Type: application/json
+
+{
+    "name": "Test User",
+    "email": "user2@example.com",
+    "password": "password123",
+    "role": "client"
+}
+
+### Auth - Login
+POST https://appointment-scheduling-system-nbsu.onrender.com/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "user2@example.com",
+    "password": "password123"
+}
+
+### Get Providers (requires Bearer token)
+GET https://appointment-scheduling-system-nbsu.onrender.com/api/providers
+Authorization: Bearer {{token}}
+
+### Set Provider Availability (requires Bearer token)
+PUT https://appointment-scheduling-system-nbsu.onrender.com/api/providers/{{68cc91b267b163585a54e41f}}/availability
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "slots": [
+        {"start": "2025-09-18T09:00:00Z", "end": "2025-09-18T09:30:00Z"},
+        {"start": "2025-09-18T10:00:00Z", "end": "2025-09-18T10:30:00Z"}
+    ]
+}
+
+### Create Appointment (requires Bearer token)
+POST https://appointment-scheduling-system-nbsu.onrender.com/api/appointments
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "providerId": "{{68cc91b267b163585a54e41f}}",
+    "start": "2025-09-18T09:00:00Z",
+    "end": "2025-09-18T09:30:00Z"
+}
+
+### Get Appointments (requires Bearer token)
+GET https://appointment-scheduling-system-nbsu.onrender.com/api/appointments
+Authorization: Bearer {{token}}
+
+@base_url = https://appointment-scheduling-system-nbsu.onrender.com
+### Health Check
+GET {{base_url}}/api/health
+Accept: application/json
+
+### Auth - Register Client
+POST {{base_url}}/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Alice Client",
+  "email": "client@example.com",
+  "password": "password123",
+  "role": "client"
+}
+
+### Auth - Register Provider
+POST {{base_url}}/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Bob Provider",
+  "email": "provider@example.com",
+  "password": "password123",
+  "role": "provider"
+}
+
+### Auth - Login as Provider
+POST {{base_url}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "provider@example.com",
+  "password": "password123"
+}
+
+> {% client.global.set("providerToken", response.body.token) %}
+> {% client.global.set("providerUserId", response.body.user.id) %}
+
+### Auth - Login as Client
+POST {{base_url}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "client@example.com",
+  "password": "password123"
+}
+
+> {% client.global.set("clientToken", response.body.token) %}
+> {% client.global.set("clientUserId", response.body.user.id) %}
+
+### Create Provider Profile (as Provider)
+POST {{base_url}}/api/providers
+Authorization: Bearer {{providerToken}}
+Content-Type: application/json
+
+{
+  "userId": "{{providerUserId}}",
+  "specialty": "Dermatology",
+  "availableSlots": []
+}
+
+> {% client.global.set("providerId", response.body._id) %}
+
+### Get Providers (any logged-in user)
+GET {{base_url}}/api/providers
+Authorization: Bearer {{clientToken}}
+
+### Set Provider Availability (as Provider)
+PUT {{base_url}}/api/providers/{{providerId}}/availability
+Authorization: Bearer {{providerToken}}
+Content-Type: application/json
+
+{
+  "slots": [
+    {"start": "2025-09-18T09:00:00Z", "end": "2025-09-18T09:30:00Z"},
+    {"start": "2025-09-18T10:00:00Z", "end": "2025-09-18T10:30:00Z"}
+  ]
+}
+
+### Create Appointment (as Client)
+POST {{base_url}}/api/appointments
+Authorization: Bearer {{clientToken}}
+Content-Type: application/json
+
+{
+  "providerId": "{{providerId}}",
+  "start": "2025-09-18T09:00:00Z",
+  "end": "2025-09-18T09:30:00Z"
+}
+
+### Get Appointments (as Client)
+GET {{base_url}}/api/appointments
+Authorization: Bearer {{clientToken}}

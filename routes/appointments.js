@@ -11,6 +11,7 @@ router.put('/:id', auth(['client','provider','admin']), validate(updateAppointme
 router.get('/me', auth(), appointmentController.getMine);
 router.get('/provider/:id', auth(['provider','admin']), appointmentController.getProviderAppointments);
 router.get('/all', auth(['admin']), appointmentController.getAll);
+router.delete('/:id', auth(['client','provider','admin']), appointmentController.delete);
 
 
 module.exports = router;

@@ -23,7 +23,20 @@ router.put('/:id/availability', auth(['provider']), asyncHandler(async (req, res
 }));
 
 module.exports = router;
+/*
+const express = require('express');
+const router = express.Router();
+const { createProvider, getProviders } = require('../controllers/providerController');
+const auth = require('../middleware/auth');
 
+// Create provider (only provider/admin can create themselves or others)
+router.post('/', auth(['provider', 'admin']), createProvider);
+
+// Get all providers (open or protected depending on your rules)
+router.get('/', getProviders);
+
+module.exports = router;
+*/
 
 
 /*const express = require('express');

@@ -1,0 +1,106 @@
+@base_url = https://appointment-scheduling-system-nbsu.onrender.com
+@token = PASTE_YOUR_JWT_HERE
+
+### 1. Health Check
+GET {{base_url}}/api/health
+
+
+### 2. Register Provider
+POST {{base_url}}/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Dr. Smith",
+  "email": "provider@example.com",
+  "password": "password123",
+  "role": "provider"
+}
+
+
+### 3. Register Client
+POST {{base_url}}/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "user@example.com",
+  "password": "password123",
+  "role": "client"
+}
+
+### register admin
+POST {{base_url}}/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Admin User",
+  "email": "admin@example.com",
+  "password": "password123",
+  "role": "admin"
+}
+
+### admin login
+POST {{base_url}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "password123"
+}
+
+### 4. Provider Login
+POST {{base_url}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "provider@example.com",
+  "password": "password123"
+}
+
+### 5. Client Login
+POST {{base_url}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+
+
+### 6. Get Providers (logged in as client)
+GET {{base_url}}/api/providers
+Authorization: Bearer {{token}}
+
+
+### 7. Provider Sets Availability
+PUT {{base_url}}/api/providers/68cde23659e1b2064e50191f/availability
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2U4MjQ1YmM5Mjk2MDZlYTM0NmJhNCIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3NTgzNjQyNzQsImV4cCI6MTc1ODk2OTA3NH0.lZjn-IRJ85hOKZX3BjX3LM_oWVz9n1F5L5C7P5oIvgU
+Content-Type: application/json
+
+{
+  "slots": [
+    { "start": "2025-09-18T09:00:00Z", "end": "2025-09-18T09:30:00Z" },
+    { "start": "2025-09-18T10:00:00Z", "end": "2025-09-18T10:30:00Z" }
+  ]
+}
+
+
+### 8. Client Books Appointment
+POST {{base_url}}/api/appointments
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2RkMjdkNTI4YzliNTM2ZjJmY2VlMyIsInJvbGUiOiJjbGllbnQiLCJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJpYXQiOjE3NTgzMjU2NTMsImV4cCI6MTc1ODkzMDQ1M30.lPO0AGawlBCHgESKkJEqnFDgCROMOoXyAKNVt1HL-Dg
+Content-Type: application/json
+
+{
+  "providerId": "68cde23659e1b2064e50191f",
+  "start": "2025-09-18T09:00:00Z",
+  "end": "2025-09-18T09:30:00Z",
+  "service": "General Consultation"
+    
+}
+
+
+
+
+### 9. Get Client’s Appointments
+GET {{base_url}}/api/appointments
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2U4MjQ1YmM5Mjk2MDZlYTM0NmJhNCIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJpYXQiOjE3NTgzNjQyNzQsImV4cCI6MTc1ODk2OTA3NH0.lZjn-IRJ85hOKZX3BjX3LM_oWVz9n1F5L5C7P5oIvgU
