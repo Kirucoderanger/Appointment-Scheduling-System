@@ -89,19 +89,43 @@ exports.deleteAppointment = async (id, user) => {
   }
 
   // Authorization: client, provider, or admin
-  const allowed =
-    user.role === 'admin' ||
-    (user.role === 'provider' && appointment.providerId.equals(user.id)) ||
-    (user.role === 'client' && appointment.clientId.equals(user.id));
+  const allowed = user.role === 'admin' ||
+  (user.role === 'provider' && appointment.providerId?.toString() === user.id.toString()) ||
+  (user.role === 'client' && appointment.clientId?.toString() === user.id.toString());
   if (!allowed) {
     const err = new Error('Forbidden');
     err.statusCode = 403;
     throw err;
   }
 
-  await appointment.remove();
+  await appointment.deleteOne();
   return appointment;
 };
+
+exports.cancelAppointment = async (id, user, reason) => {
+  const appointment = await Appointment.findById(id);
+  if (!appointment) {
+    const err = new Error('Appointment not found');
+    err.statusCode = 404;
+    throw err;
+  }
+
+  const allowed = user.role === 'admin' ||
+  (user.role === 'provider' && appointment.providerId?.toString() === user.id.toString()) ||
+  (user.role === 'client' && appointment.clientId?.toString() === user.id.toString());
+  if (!allowed) {
+    const err = new Error('Forbidden');
+    err.statusCode = 403;
+    throw err;
+  }
+
+  appointment.status = 'canceled';
+  appointment.notes = reason || appointment.notes;
+
+  await appointment.save();
+  return appointment;
+};
+
 
 
 

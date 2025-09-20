@@ -116,9 +116,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2U4MjQ1Y
 DELETE {{base_url}}/api/appointments/68cc91f967b163585a54e422
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Y2U4ZTE5YTUwNDhjZjU2MDIxNTg1NiIsInJvbGUiOiJjbGllbnQiLCJlbWFpbCI6ImNsaWVudDFAZXhhbXBsZS5jb20iLCJpYXQiOjE3NTgzODEwMjEsImV4cCI6MTc1ODk4NTgyMX0.zE238QhuCcvDzeRG9ZOloibfNVqiAHRXlAVqPs4et2o
 Content-Type: application/json
-{
-  "reason": "Scheduling conflict"
-}
+
 
 ### Cancel Appointment (as Provider)
 DELETE {{base_url}}/api/appointments/{{appointmentId}}  
@@ -145,3 +143,27 @@ Content-Type: application/json
   "end": "2025-10-18T09:30:00Z",
   "notes": "Patient prefers morning appointments."
 }
+
+### update Appointment (as Provider)
+PUT {{base_url}}/api/appointments/68cc91f967b163585a
+Authorization: Bearer {{providerToken}}
+Content-Type: application/json
+
+{
+  "start": "2025-10-18T10:00:00Z",
+  "end": "2025-10-18T10:30:00Z",
+  "notes": "Rescheduled to later time."
+}
+
+### update Appointment (as Admin)
+PUT {{base_url}}/api/appointments/68cc91f967b163585a
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "start": "2025-10-18T10:00:00Z",
+  "end": "2025-10-18T10:30:00Z",
+  "notes": "Rescheduled to later time."
+}
+
+### 

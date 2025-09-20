@@ -34,6 +34,12 @@ exports.delete = asyncHandler(async (req, res) => {
   res.json(deleted);
 });
 
+exports.cancel = asyncHandler(async (req, res) => {
+  const { reason } = req.body;
+  const canceled = await appointmentService.cancelAppointment(req.params.id, req.user, reason);
+  res.json(canceled);
+});
+
 
 
 

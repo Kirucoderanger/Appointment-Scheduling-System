@@ -12,6 +12,6 @@ router.get('/me', auth(), appointmentController.getMine);
 router.get('/provider/:id', auth(['provider','admin']), appointmentController.getProviderAppointments);
 router.get('/all', auth(['admin']), appointmentController.getAll);
 router.delete('/:id', auth(['client','provider','admin']), appointmentController.delete);
-
+router.post('/:id/cancel', auth(['client','provider','admin']), appointmentController.cancel);
 
 module.exports = router;
