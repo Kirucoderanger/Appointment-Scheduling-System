@@ -4,16 +4,16 @@ const Provider = require('../models/Provider');
 const auth = require('../middlewares/auth');
 const asyncHandler = require('../middlewares/asyncHandler');
 const providerController = require('../controllers/providerController');
-const { body, validationResult } = require('express-validator');
+const {createProvider,updateProvider, updateAvailability} = require('../validators/provider.validator');
 const validate = require('../middlewares/validate');
-const { createProvider } = require('../validators/provider.validator');
+
 
 // Create provider (only provider/admin can create themselves or others)
 router.post('/', auth(['provider', 'admin']), validate(createProvider), providerController.createProvider);
 router.get('/', providerController.getProviders);
 router.get('/:id', providerController.getProviderById);
-router.put('/:id', auth(['provider', 'admin']), validate(createProvider), providerController.updateProvider);
-router.put('/:id/availability', auth(['provider', 'admin']), validate(createProvider), providerController.updateAvailability);
+router.put('/:id', auth(['provider', 'admin']), validate(updateProvider), providerController.updateProvider);
+router.put('/:id/availability', auth(['provider', 'admin']), validate(updateAvailability), providerController.updateAvailability);
 router.delete('/:id', auth(['admin']), providerController.deleteProvider);
 
 module.exports = router;
