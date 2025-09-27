@@ -88,8 +88,8 @@ exports.deleteProvider = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
-// Set provider availability
-exports.setAvailability = async (req, res) => {
+// Update provider availability
+exports.updateAvailability = async (req, res) => {
   try {
     const { slots } = req.body;
 
