@@ -1,0 +1,14 @@
+//test end points from local host
+// @base_url = http://localhost:3000
+GET http://localhost:3000/api/health
+Accept: application/json
+### Auth - Register Client
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Client User",
+  "email": "client@example1.com",
+  "password": "password123",
+  "role": "client"
+}

@@ -1,3 +1,4 @@
+
 ### Appointment Scheduling System API
 ### This is a simple CRUD API for managing appointments, built with Node.js, Express, and MongoDB. The API allows users to create, read, update, and delete appointments.
 ### The API is documented using Swagger, which provides an interactive interface for exploring the available endpoints and their parameters.
